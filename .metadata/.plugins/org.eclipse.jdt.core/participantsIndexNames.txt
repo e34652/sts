@@ -1,0 +1,15 @@
+INDEX VERSION 1.134
+D:\_dev\sts4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2819664657.index
+\_sb0322-1\src\main\java
+D:\_dev\sts4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3944460243.index
+\practice1\src\main\java
+D:\_dev\sts4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2670315109.index
+\_sb0322_original\src\main\java
+D:\_dev\sts4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2632631341.index
+\todoList_servlet\src\main\java
+D:\_dev\sts4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2827397234.index
+\_sb0322\src\main\java
+D:\_dev\sts4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3288378584.index
+\_sb0322_mybatis\src\main\java
+D:\_dev\sts4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1622402115.index
+\_sb0322-1_mybatis\src\main\java

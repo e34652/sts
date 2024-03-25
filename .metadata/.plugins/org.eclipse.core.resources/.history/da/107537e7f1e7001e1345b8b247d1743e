@@ -1,0 +1,35 @@
+package com.gom;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.gom.dao.MemberDao;
+import com.gom.dto.Member;
+
+@SpringBootTest
+class Sb0322ApplicationTests {
+
+	@Autowired
+	private MemberDao mDao;
+	
+	@Test
+	void contextLoads() {
+	}
+	@Test
+	@DisplayName("assert() 테스트")
+	public void tes213() {
+		assertEquals(1,1);
+	}
+	@Test
+	@DisplayName("selectAll() 테스트")
+	public void test1() {
+		System.out.println(mDao.selectAll());
+	}
+	@Test
+	@DisplayName("insert() 테스트")
+	public void tes21() {
+		Member member = Member.builder().email("1243@123").name("123").email("456").build(); 
+	}
+}

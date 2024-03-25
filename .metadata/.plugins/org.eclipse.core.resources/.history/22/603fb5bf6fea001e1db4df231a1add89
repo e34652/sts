@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moongom.mapper.DeptMapper">
+	<select id="selectCount" resultType="Integer">
+		select count(*) from member
+	</select>
+
+
+	<select id="selectDeptList"
+		resultType="com.gom.dto.Dept">
+		<![CDATA[
+new Dept(rs.getInt("DEPTNO"), rs.getString("DNAME"), rs.getString("LOC"));
+		
+			SELECT
+				DEPTNO,
+				DNAME,
+				LOC,
+			FROM
+				DEPT
+			
+		]]>
+	</select>
+
+</mapper>

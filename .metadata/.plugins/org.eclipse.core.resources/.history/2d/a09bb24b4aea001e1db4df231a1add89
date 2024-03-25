@@ -1,0 +1,21 @@
+package com.moongom;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.moongom.mapper.BoardMapper;
+
+@SpringBootTest
+class Sb0325ApplicationTests {
+	
+	@Autowired
+	BoardMapper boardMapper;
+	
+	@Test
+	void contextLoads() {
+	}
+
+	@Test
+	public 
+}

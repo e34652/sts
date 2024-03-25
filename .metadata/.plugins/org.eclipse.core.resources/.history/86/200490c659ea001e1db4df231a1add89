@@ -1,0 +1,53 @@
+package com.gom.mapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+
+import com.gom.dto.Member;
+
+@Mapper
+public interface MemberMapper {
+
+	public Member selectById(long id);
+
+	public List<Member> selectAll();
+	
+	public void insert(Member member);
+	
+	public void update(Member member) {
+		jdbcTemplate.update("update MEMBER set NAME = ?, AGE = ?, MEMO = ? where EMAIL = ?", member.getName(), member.getAge(), member.getMemo(), member.getEmail());
+	}
+	
+	public int count() {
+		return jdbcTemplate.queryForObject("select count(*) from member" , Integer.class);
+	}
+	public void delete(long id) {
+		jdbcTemplate.update("delete from MEMBER where ID = ?", id);
+	}
+	
+//	public void insert2(Member member) {
+////		 key holder를 쓰기 위해 preparedStatement 사용
+//		//insert 하자마자 자동생성된 id값을 알기 위한 코드
+//	
+//		KeyHolder keyHolder = new GeneratedKeyHolder();  
+//		jdbcTemplate.update(new PreparedStatementCreator() {
+//			
+//			@Override
+//			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+//				PreparedStatement pstmt = con.prepareStatement(
+//						"insert into MEMBER (EMAIL, PASSWORD, NAME, REGDATE) "
+//						+ "values(?,?,?,now())", new String[]{"ID"});
+//				pstmt.setString(1, member.getEmail());
+////				pstmt.setString(2, member.getPassword());
+//				pstmt.setString(3, member.getName());
+//				return pstmt;
+//			}
+//		}, keyHolder);
+//		Number keyValue = keyHolder.getKey();
+//		member.setId(keyValue.longValue());
+//	}
+}

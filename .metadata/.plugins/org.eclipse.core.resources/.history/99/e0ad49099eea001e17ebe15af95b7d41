@@ -1,0 +1,131 @@
+package com.gom.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.gom.dto.Dept;
+import com.gom.dto.Emp;
+import com.gom.dto.InfoState;
+import com.gom.service.DeptService;
+import com.gom.service.EmpService;
+
+@Controller
+public class MyController {
+	@Autowired
+	private DeptService dSvc;
+
+	@Autowired
+	private EmpService eSvc;
+
+	@Autowired
+	private InfoState infoState;
+
+	@GetMapping("/")
+	public String root(Model model) {
+		infoState.setDeptno(null);
+		infoState.setEmpno(null);
+
+		List<Dept> dList = dSvc.LoadDeptList();
+		List<Emp> eList = eSvc.eListService();
+		model.addAttribute("DeptList", dList);
+		model.addAttribute("EmpList", eList);
+		return "root";
+	}
+
+	@GetMapping("/pressDeptno")
+	public String selectByDeptno(@RequestParam int deptno, Model model) {
+		infoState.setDeptno(String.valueOf(deptno));
+		infoState.setEmpno(null);
+
+		List<Emp> eList = eSvc.eListByDeptnoService(deptno);
+		List<Dept> dList = dSvc.LoadDeptList();
+
+		model.addAttribute("eListByDeptno", eList);
+		model.addAttribute("DeptList", dList);
+
+		return "root";
+	}
+
+	@GetMapping("/pressEdit")
+	public String selectByEmpno(@RequestParam int empno, Model model) {
+		infoState.setEmpno(String.valueOf(empno));
+		
+		if(infoState.getDeptno() != null) {
+		int deptnoInfo = Integer.parseInt(infoState.getDeptno());
+		List<Emp> eList = eSvc.eListByDeptnoService(deptnoInfo);
+		model.addAttribute("eListByDeptno", eList);
+		}else {
+			List<Emp> empList = eSvc.eListService();
+			model.addAttribute("EmpList", empList);
+			System.out.println(empList);
+		}
+	
+		List<Dept> dList = dSvc.LoadDeptList();
+		Emp emp = eSvc.eSelectByEmpnoService(empno);
+	
+		model.addAttribute("DeptList", dList);
+		model.addAttribute("Emp", emp);
+
+		return "root";
+	}
+
+	@PostMapping("/pressUpdate")
+	public String updateByEmpno(@RequestParam int newEmpno, @RequestParam String newEname, @RequestParam String newJob,
+			@RequestParam int newMgr, @RequestParam int newSal, @RequestParam int newComm, @RequestParam int newDeptno,
+			Model model) {
+
+		int deptnoInfo = Integer.parseInt(infoState.getDeptno());
+		Emp emp = new Emp(newEmpno, newEname, newJob, newMgr, newSal, newComm, newDeptno);
+
+		eSvc.eUpdateService(emp);
+		List<Dept> dList = dSvc.LoadDeptList();
+		List<Emp> eList = eSvc.eListByDeptnoService(deptnoInfo);
+
+		model.addAttribute("DeptList", dList);
+		model.addAttribute("eListByDeptno", eList);
+
+		return "root";
+	}
+
+	@PostMapping("/pressInsert")
+	public String insertEmp(@RequestParam int empno, @RequestParam String ename, @RequestParam String job,
+			@RequestParam int mgr, @RequestParam int sal, @RequestParam int comm, @RequestParam int deptno,
+			Model model) {
+		Emp emp = new Emp(empno, ename, job, mgr, sal, comm, deptno);
+		
+		eSvc.eInsertService(emp);
+
+		List<Dept> dList = dSvc.LoadDeptList();
+		model.addAttribute("DeptList", dList);
+		
+		if (infoState.getDeptno() != null) {
+			int deptnoInfo = Integer.parseInt(infoState.getDeptno());
+			List<Emp> eList = eSvc.eListByDeptnoService(deptnoInfo);
+			model.addAttribute("eListByDeptno", eList);
+		}
+		return "root";
+	}
+
+	@GetMapping("/pressDelete")
+	public String deleteEmp(@RequestParam int empno, Model model) {
+
+		eSvc.eDeleteService(empno);
+		List<Dept> dList = dSvc.LoadDeptList();
+
+		model.addAttribute("DeptList", dList);
+
+		if (infoState.getDeptno() != null) {
+			int deptnoInfo = Integer.parseInt(infoState.getDeptno());
+			List<Emp> eList = eSvc.eListByDeptnoService(deptnoInfo);
+			model.addAttribute("eListByDeptno", eList);
+		}
+		return "root";
+	}
+
+}

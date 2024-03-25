@@ -1,0 +1,5 @@
+package com.gom.controller;
+
+public class AjaxController {
+
+}

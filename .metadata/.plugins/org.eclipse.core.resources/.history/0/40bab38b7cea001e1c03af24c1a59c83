@@ -1,0 +1,61 @@
+package com.gom;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.gom.mapper.EmpMapper;
+import com.moongom.dto.BoardDto;
+
+@SpringBootTest
+class Sb03221ApplicationTests {
+	
+	@Autowired
+	EmpMapper eMapper;
+	
+	@Test
+	void contextLoads() {
+	}
+	
+	@Test
+	@DisplayName("등록된 근로자의 수")
+	void employeeCount() {
+		System.out.println(eMapper.countEmployees());
+	}
+	
+	@Test
+	@DisplayName("근로자 리스트")
+	void memberSelectAll() {
+		for(BoardDto dto : eMapper.selectEmpListByDeptno()) {
+			System.out.println(dto);
+		}
+	}
+	
+	@Test
+	@DisplayName("member 데이터 삽입")
+	void memberInsert() {
+		BoardDto dto = BoardDto.builder().email("moongom@gommoon.com").name("문곰").password("123").build();
+		boardMapper.insertBoard(dto);
+		}
+	
+	@Test
+	@DisplayName("member 데이터 삭제")
+	void memberDelete() {
+		int before = boardMapper.selectCount();
+		int idx = 4;
+		boardMapper.deleteBoard(idx);
+		int after = boardMapper.selectCount();
+		assertEquals(before-1, after);
+		}
+	
+	@Test
+	@DisplayName("member 데이터 업데이트")
+	void memberInsert() {
+		BoardDto dto = BoardDto.builder().id(11).email("moongom1@gommoon.com").name("문곰2").password("1233").build();
+		boardMapper.insertBoard(dto);
+		}
+	
+}
+
+}

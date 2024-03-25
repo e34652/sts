@@ -1,0 +1,9 @@
+1711336541715	Rename package 'com.moongom.config'
+1711336556830	Rename package 'com.moongom.mapper'
+1711336566409	Rename type 'BoardMapper'
+1711337058190	Delete element
+1711337061659	Copy compilation unit
+1711337183462	Rename compilation unit 'MemberDao.java'
+1711337946779	Rename resource 'sql-board.xml'
+1711338492561	Delete element
+1711338550934	Rename type 'ListLoadService'

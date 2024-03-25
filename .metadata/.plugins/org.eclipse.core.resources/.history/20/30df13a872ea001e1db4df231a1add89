@@ -1,0 +1,27 @@
+package com.gom.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.gom.dto.Emp;
+
+@Mapper
+public interface EmpMapper {
+	
+	List<Emp> selectEmpListByDeptno(int deptno);
+	
+	Emp selectEmployeeByEmpno();
+	
+	void insertEmp(Emp emp);
+
+	void deleteEmp(int empno);
+	
+	void updateEmp(Emp emp);
+	
+	int selectCount();
+
+
+	
+
+}

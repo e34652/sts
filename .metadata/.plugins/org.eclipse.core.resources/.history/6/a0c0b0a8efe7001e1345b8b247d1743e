@@ -1,0 +1,25 @@
+package com.gom;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.gom.dao.MemberDao;
+import com.gom.dto.Member;
+
+@SpringBootTest
+class Sb0322ApplicationTests {
+
+	@Autowired
+	private MemberDao mDao;
+	
+	@Test
+	void contextLoads() {
+	}
+	@Test
+	@DisplayName("selectAll() 테스트")
+	public void tes21() {
+		Member member = Member.builder().email(123@123).name("123").password("456").build(); 
+	}
+}

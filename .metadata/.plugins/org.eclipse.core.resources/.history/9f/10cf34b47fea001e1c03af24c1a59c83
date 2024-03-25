@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gom.mapper.EmpMapper">
+
+
+	<select id="countEmployees" resultType="int">
+		SELECT COUNT(*) FROM EMP
+	</select>
+	
+	<select id="selectEmpListByDeptno" resultType="com.gom.dto.Emp" 
+	parameterType="int">
+
+		<![CDATA[
+			SELECT
+				EMPNO,
+				ENAME,
+				JOB,
+				MGR,
+				HIREDATE,
+				SAL,
+				COMM,
+				DEPTNO
+				
+			FROM EMP
+			
+			WHERE DEPTNO = #{DEPTNO}
+		]]>
+		
+	</select>
+
+	<select id="selectEmployeeByEmpno" resultType="com.gom.dto.Emp" 
+	parameterType="int">
+
+		<![CDATA[
+			SELECT 
+				EMPNO,
+				ENAME,
+				JOB,
+				MGR,
+				HIREDATE,
+				SAL,
+				COMM,
+				DEPTNO 
+				
+			FROM EMP
+			WHERE EMPNO = #{EMPNO}
+		]]>
+		
+	</select>
+	
+	<insert id="insertEmp" parameterType="com.gom.dto.Emp">
+	<![CDATA[
+		INSERT INTO Emp
+		(
+			EMPNO,
+			ENAME,
+			JOB,
+			MGR,
+			HIREDATE,
+			SAL,
+			COMM,
+			DEPTNO
+		)
+		VALUES
+		(
+			#{empno},
+			#{ename},
+			#{job},
+			#{mgr},
+			SYSDATE,
+			#{sal},
+			#{comm},
+			#{deptno}
+		)
+	]]>
+	</insert>
+
+
+	<delete id="deleteEmp" parameterType="int">
+		DELETE FROM EMP WHERE EMPNO = #{EMPNO}
+	</delete>
+
+	<update id="updateEmp" parameterType="com.gom.dto.Emp">
+
+		update EMP set 
+			ENAME = #{ENAME},
+			JOB = #{JOB},
+			MGR = #{MGR},
+			SAL = #{SAL},
+			COMM = #{COMM},
+			DEPTNO = #{DEPTNO} 
+		WHERE EMPNO = #{EMPNO}
+	</update>
+</mapper>

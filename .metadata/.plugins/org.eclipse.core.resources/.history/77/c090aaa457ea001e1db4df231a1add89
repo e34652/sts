@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gom.mapper.MemberMapper">
+	<select id="selectCount" resultType="Integer">
+		select count(*) from member
+	</select>
+
+
+	<select id="selectById"
+		resultType="com.gom.dto.Member">
+		<![CDATA[
+			SELECT
+				ID,
+				EMAIL,
+				PASSWORD,
+				NAME,
+				DATE_FORMAT(REGDATE, '%Y.%m.%d %H:%i:%s') AS REGDATE
+			FROM
+				MEMBER
+			ORDER BY id DESC
+		]]>
+	</select>
+
+	<insert id="insertMember"
+		parameterType="com.gom.dto.Member">
+	<![CDATA[
+		INSERT INTO member
+		(
+			email, 
+			password, 
+			name, 
+			regdate
+		)
+		VALUES
+		(
+			#{email}, 
+			#{password}, 
+			#{name}, 
+			NOW()
+		)
+	]]>
+	</insert>
+
+
+	<delete id="deleteMember" parameterType="int">
+		DELETE FROM member WHERE
+		id = #{idx}
+	</delete>
+
+
+	<update id="updateMember"
+		parameterType="com.gom.dto.Member">
+		update member set
+			email = #{email},
+			name = #{name},
+			password = #{password}
+		where id = #{id}
+	</update>
+</mapper>

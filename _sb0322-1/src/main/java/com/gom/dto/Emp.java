@@ -1,0 +1,35 @@
+package com.gom.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
+public class Emp {
+	private int empno;
+	private String ename;
+	private String job;
+	private int mgr;
+	private String hireDate;
+	private int sal;
+	private int comm;
+	private int deptno;
+	
+	public Emp(int empno, String ename, String job, int mgr, int sal, int comm, int deptno) {
+	
+		this.empno = empno;
+		this.ename = ename;
+		this.job = job;
+		this.mgr = mgr;
+		this.sal = sal;
+		this.comm = comm;
+		this.deptno = deptno;
+	}
+	
+	
+}

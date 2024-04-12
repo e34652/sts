@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.steam.repository.ProductMapper">
+
+<resultMap id="product" type="com.steam.model.ProductDto">
+    <id property="num" column="product_num"/>
+    <result property="name" column="product_name"/>
+    <result property="genre" column="product_genre"/>
+    <result property="price" column="product_price"/>
+    <result property="releasedate" column="product_releasedate"/>
+    <result property="simple" column="product_simple"/>
+    <result property="detail" column="product_detail"/>
+    <!-- 다른 필드들에 대한 매핑 추가 -->
+</resultMap>
+
+
+	<select id="countProducts" resultType="int">
+		SELECT COUNT(*) FROM product_tb
+	</select>
+
+	<select id="selectProductByNum"
+		resultMap="product" parameterType="long">
+		SELECT *
+		FROM product_tb
+		WHERE product_num = #{num}
+	</select>
+	
+	<select id="selectIntroductionByNum"
+		resultMap="product" parameterType="long">
+		SELECT product_simple, product_detail
+		FROM product_tb
+		WHERE product_num = #{num}
+	</select>
+	
+	<select id="selectProductByGenre"
+		resultMap="product" parameterType="String">
+		SELECT *
+		FROM product_tb
+		WHERE product_num = #{genre}
+	</select>
+	
+	<select id="selectProductByName"
+		resultMap="product" parameterType="String">
+		SELECT *
+		FROM product_tb
+		WHERE product_num = #{name}
+	</select>
+
+	<select id="selectProductList"
+		resultMap="product">
+		SELECT *
+		FROM product_tb
+	</select>
+
+	<insert id="insertProduct" parameterType="com.steam.model.ProductDto">
+		INSERT INTO product_tb (
+		product_name,
+		product_genre,
+		product_releasedate,
+		product_price,
+		product_simple,
+		product_detail
+		)
+		VALUES (
+		#{name},
+		#{genre},
+		#{releasedate},
+		#{price},
+		#{simple},
+		#{detail}
+		)
+	</insert>
+
+	<update id="updateProduct" parameterType="com.steam.model.ProductDto">
+		UPDATE product_tb
+		SET
+		product_name = #{name},
+		product_genre = #{genre},
+		product_releasedate = #{releasedate},
+		product_price = #{price},
+		product_simple = #{simple},
+		product_detail = #{detail}
+		WHERE 
+		product_num = #{num}
+	</update>
+	
+	<update id="updateIntroduction" parameterType="com.steam.model.ProductDto">
+		UPDATE product_tb
+		SET
+		product_simple = #{simple},
+		product_detail = #{detail}
+		WHERE 
+		product_num = #{num}
+	</update>
+
+	<delete id="deleteProduct" parameterType="long">
+		DELETE FROM product_tb
+		WHERE
+		product_num = #{num}
+	</delete>
+</mapper>

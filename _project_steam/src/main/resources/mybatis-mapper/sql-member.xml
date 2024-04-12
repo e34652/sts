@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.steam.repository.MemberMapper">
+
+<resultMap id="member" type="com.steam.model.MemberDto">
+    <id property="num" column="member_num"/>
+    <result property="email" column="member_email"/>
+    <result property="password" column="member_password"/>
+    <result property="nickname" column="member_nickname"/>
+    <result property="authority" column="member_authority"/>
+    <result property="regdate" column="member_regdate"/>
+    <result property="nationality" column="member_nationality"/>
+    <!-- 다른 필드들에 대한 매핑 추가 -->
+</resultMap>
+
+
+	<select id="countMembers" resultType="Int">
+		select count(*) from member_tb
+	</select>
+
+
+	<select id="selectMemberByNum" parameterType= "long" resultMap="member">
+		<![CDATA[
+			SELECT *
+			FROM member_tb
+			Where member_num = #{num}
+		]]>
+	</select>
+	
+	<select id="selectMemberByNickname" parameterType= "String" resultMap="member">
+		<![CDATA[
+			SELECT *
+			FROM member_tb
+			Where member_nickname = #{nickname}
+		]]>
+	</select>
+	
+	<select id="selectMemberByEmail" parameterType= "String" resultMap="member">
+		<![CDATA[
+			SELECT *
+			FROM member_tb
+			Where member_email = #{email}
+		]]>
+	</select>
+
+	<select id="selectMemberList" resultMap="member">
+		<![CDATA[
+			SELECT * FROM member_tb
+			
+		]]>
+	</select>
+	
+	<insert id="insertMember" parameterType="com.steam.model.MemberDto">
+	<![CDATA[
+		INSERT INTO member_tb
+		(
+			member_email,
+			member_password,
+			member_nickname, 
+			member_authority,
+			member_regdate,
+			member_nationality
+			
+		)
+		VALUES
+		(	
+			#{email}, 
+			#{password}, 
+			#{nickname}, 
+			#{authority},
+			now(),
+			#{nationality}
+			
+		)
+	]]>
+	</insert>
+
+	<update id="updateMember" parameterType="com.steam.model.MemberDto">
+		update member_tb set 
+			member_password = #{password},
+			member_nickname = #{nickname},
+			member_authority = #{authority},
+			member_nationality = #{nationality}
+		where member_num = #{num}
+	</update>
+	
+	<delete id="deleteMember" parameterType="long">
+		DELETE FROM member_tb WHERE
+		member_num = #{num}
+	</delete>
+
+
+	
+</mapper>
